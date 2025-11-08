@@ -671,7 +671,7 @@
   /* iOS + fixed backgrounds = jank */
   body{ background-attachment: scroll; }
 
-  /* Header: two rows, avatar spans both rows at top-right */
+  /* Header: two rows; reserve right space for avatar */
   header{ padding: .5rem .85rem; }
   header .container{
     display: flex;
@@ -679,25 +679,28 @@
     align-items: center;
     gap: .6rem;
     position: relative;      /* for absolute avatar */
-    padding-right: 64px;     /* keep text/links clear of avatar */
+    padding-right: 84px;     /* room so text/links don't run under avatar */
   }
 
-  /* Row 1: bigger name, still ~2 lines */
+  /* Row 1: name (slightly smaller so it fits on 2 lines) */
   header h1{
     order: 1;
-    font-size: clamp(1.1rem, 6.8vw, 1.6rem);  /* a touch larger */
+    font-size: clamp(1rem, 5.6vw, 1.45rem);
     line-height: 1.12;
-    max-width: 58vw;
+    max-width: 60vw;         /* gives enough room for 2 lines */
     margin: 0;
   }
 
-  /* Avatar spans both rows (top-right) */
+  /* Avatar spans both rows at top-right — no circular crop */
   .header-avatar{
     display: block !important;
     position: absolute;
     right: 8px; top: 6px;
-    width: 56px; height: 56px;
-    border-radius: 9999px; object-fit: cover;
+    width: 72px; height: auto;              /* taller → visually spans both rows */
+    border-radius: 0 !important;            /* remove circle */
+    background: transparent;
+    object-fit: contain;                    /* no cropping */
+    z-index: 2;
     cursor: pointer;
   }
 
@@ -715,7 +718,7 @@
   nav ul{ flex-wrap: wrap; gap: .5rem; padding-left: 0; justify-content: flex-start; }
   nav ul li a{ font-size: .95rem; }
 
-  /* Content layout */
+  /* Content layout (unchanged) */
   .hero{
     flex-direction: column;
     align-items: center;
@@ -756,7 +759,6 @@
 /* Hidden by default; shown only on phones via rule above */
 .header-avatar{ display: none; }
 
-    
   
    
   </style>  
