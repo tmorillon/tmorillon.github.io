@@ -598,14 +598,39 @@
 }
 
 
+/* === T-bot composer ON THE RIGHT === */
 #tbot-composer{
-  position:fixed; left:160px; bottom:calc(26px + env(safe-area-inset-bottom));
-  display:none; align-items:center; gap:8px;
-  width:420px; max-width:72vw; z-index:10000;
-  background:#fff; border:1px solid #e5e7eb; border-radius:9999px;
-  padding:6px 8px; box-shadow:0 10px 24px rgba(0,0,0,.18);
+  position: fixed;
+  right: 24px;          /* anchor to right */
+  left: auto;           /* ensure left is not used */
+  bottom: calc(26px + env(safe-area-inset-bottom));
+  display: none;        /* shown when .open is added by JS */
+  align-items: center;
+  gap: 8px;
+  width: 420px;
+  max-width: 72vw;
+  z-index: 10000;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  padding: 6px 8px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.18);
 }
-#tbot-composer.open{ display:flex; }
+#tbot-composer.open{ display: flex; }
+
+/* === T-bot reply stack ABOVE the composer, also on the RIGHT === */
+#tbot-stack{
+  position: fixed;
+  right: 24px;          /* anchor to right */
+  left: auto;           /* ensure left is not used */
+  bottom: calc(96px + env(safe-area-inset-bottom));
+  width: min(420px, 72vw);
+  max-height: 60vh;
+  overflow: auto;
+  display: none;        /* your JS sets this to 'block' when opened */
+  z-index: 10000;
+}
+
 #tbot-input{
   flex:1; border:0; outline:0; background:transparent;
   font:14px/1.2 ui-sans-serif, system-ui; padding:6px 4px;
@@ -615,11 +640,6 @@
   background:#6a0f18; color:#fff; font-weight:600;
 }
 
-#tbot-stack{
-  position:fixed; left:160px; bottom:calc(96px + env(safe-area-inset-bottom));
-  width:min(420px, 72vw); max-height:60vh; overflow:auto; display:none;
-  z-index:10000;
-}
 .tbot-card{
   background:#fff; border:1px solid #e5e7eb; margin:8px 0; padding:10px 12px;
   border-radius:12px; font:14px/1.45 ui-sans-serif, system-ui;
