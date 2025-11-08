@@ -671,54 +671,49 @@
   /* iOS + fixed backgrounds = jank */
   body{ background-attachment: scroll; }
 
-  /* Make header wrap into two rows */
+  /* Header: two rows, avatar spans both rows at top-right */
   header{ padding: .5rem .85rem; }
   header .container{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: .6rem;
+    position: relative;      /* for absolute avatar */
+    padding-right: 64px;     /* keep text/links clear of avatar */
   }
 
-  /* Row 1: name left */
+  /* Row 1: bigger name, still ~2 lines */
   header h1{
     order: 1;
-    font-size: clamp(1rem, 6vw, 1.35rem);
-    line-height: 1.15;
-    max-width: 55vw;   /* ~2 lines, not 3 */
+    font-size: clamp(1.1rem, 6.8vw, 1.6rem);  /* a touch larger */
+    line-height: 1.12;
+    max-width: 58vw;
     margin: 0;
   }
 
-  /* Row 1: avatar right (tap to open chat, JS already added) */
+  /* Avatar spans both rows (top-right) */
   .header-avatar{
-    order: 2;
     display: block !important;
-    margin-left: auto;           /* pushes avatar to the right */
-    width: 36px; height: 36px; border-radius: 9999px; object-fit: cover;
+    position: absolute;
+    right: 8px; top: 6px;
+    width: 56px; height: 56px;
+    border-radius: 9999px; object-fit: cover;
     cursor: pointer;
   }
 
-  /* --- HARD LINE BREAK before row 2 --- */
+  /* Hard break before Row 2 */
   header .container::after{
     content: "";
     order: 3;
-    flex-basis: 100%;            /* forces next items to a new line */
+    flex-basis: 100%;
   }
 
-  /* Row 2: theme icon FIRST, then nav — keep them close */
+  /* Row 2: theme icon first, then tighter/smaller nav */
   .theme-label{ display: none; }
-  .theme-toggle{ order: 4; margin-right: .4rem; }   /* smaller gap before Home */
-  header nav{
-    order: 5;
-    flex: 0 0 auto;        /* don't stretch; sit right after the icon */
-    margin-left: 0 !important;  /* override any desktop push-right */
-  }
-  nav ul{
-    flex-wrap: wrap;
-    gap: .6rem;            /* tighter link spacing */
-    padding-left: 0;       /* remove any default list padding */
-    justify-content: flex-start;
-  }
+  .theme-toggle{ order: 4; margin-right: .35rem; }
+  header nav{ order: 5; flex: 0 0 auto; margin-left: 0 !important; }
+  nav ul{ flex-wrap: wrap; gap: .5rem; padding-left: 0; justify-content: flex-start; }
+  nav ul li a{ font-size: .95rem; }
 
   /* Content layout */
   .hero{
@@ -743,7 +738,7 @@
   .pub-note.award-logo{ padding-right: 0; }
   .pub-note.award-logo::after{ display: none; }
 
-  /* T-bot UI spans safe area; hide floating bubble on phones */
+  /* T-bot UI on phones; hide floating bubble */
   #tbot-bubble{ display: none !important; }
   #tbot-composer{ left: 12px; right: 12px; width: auto; }
   #tbot-stack{ left: 12px; right: 12px; width: auto; max-height: 50vh; }
@@ -760,6 +755,7 @@
 
 /* Hidden by default; shown only on phones via rule above */
 .header-avatar{ display: none; }
+
     
   
    
