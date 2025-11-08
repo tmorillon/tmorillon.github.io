@@ -673,16 +673,23 @@
 
   /* Make header wrap into two rows */
   header{ padding: .5rem .85rem; }
-  header .container{ gap: .6rem; flex-wrap: wrap; align-items: center; }
+  header .container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .6rem;
+  }
 
-  /* Row 1: name left, avatar right */
+  /* Row 1: name left */
   header h1{
     order: 1;
     font-size: clamp(1rem, 6vw, 1.35rem);
     line-height: 1.15;
-    max-width: 55vw;   /* forces ~2 lines, not 3 */
+    max-width: 55vw;   /* ~2 lines, not 3 */
     margin: 0;
   }
+
+  /* Row 1: avatar right (tap to open chat, JS already added) */
   .header-avatar{
     order: 2;
     display: block;
@@ -691,14 +698,23 @@
     cursor: pointer;
   }
 
-  /* Row 2: theme icon FIRST, then nav */
-  .theme-label{ display: none; } /* hide "Theme:" word */
-  .theme-toggle{ order: 3; margin-right: .6rem; }
-  header nav{ order: 4; flex: 1; }
+  /* --- HARD LINE BREAK before row 2 --- */
+  header .container::after{
+    content: "";
+    order: 3;
+    flex-basis: 100%;            /* forces next items to a new line */
+  }
+
+  /* Row 2: theme icon first, hide the 'Theme:' word */
+  .theme-label{ display: none; }
+  .theme-toggle{ order: 4; }
+
+  /* Row 2: nav links after the icon */
+  header nav{ order: 5; flex: 1; }
   nav ul{ flex-wrap: wrap; gap: .9rem; justify-content: flex-start; }
   nav ul li a{ font-size: 1rem; }
 
-  /* Content */
+  /* Content layout (unchanged from your good mobile setup) */
   .hero{
     flex-direction: column;
     align-items: center;
@@ -715,14 +731,13 @@
     max-width: 94vw;
     padding: 1rem 1rem 1.25rem;
   }
-
   .hero-text p, section p{ font-size: 1rem; }
 
   /* Hide the big award logo so text doesn't collide */
   .pub-note.award-logo{ padding-right: 0; }
   .pub-note.award-logo::after{ display: none; }
 
-  /* T-bot UI spans safe area at bottom; hide floating bubble on phones */
+  /* T-bot UI spans safe area; hide floating bubble on phones */
   #tbot-bubble{ display: none !important; }
   #tbot-composer{ left: 12px; right: 12px; width: auto; }
   #tbot-stack{ left: 12px; right: 12px; width: auto; max-height: 50vh; }
