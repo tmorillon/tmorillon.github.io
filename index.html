@@ -575,28 +575,47 @@
 
     
     /* ============================
-            LLM bot
+       T-bot bottom-left avatar & inline composer
     ============================ */
-    #floating-avatar {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      z-index: 999;
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transition: transform 0.3s ease;
-    }
-    #floating-avatar:hover {
-      transform: scale(1.1);
-    }
-    #floating-avatar img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+#tbot-bubble{
+  position:fixed; left:20px; bottom:calc(20px + env(safe-area-inset-bottom));
+  width:64px; height:64px; border-radius:9999px; overflow:hidden;
+  display:grid; place-items:center; background:#6a0f18; color:#fff;
+  box-shadow:0 8px 24px rgba(0,0,0,.25); cursor:pointer; z-index:10000;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+#tbot-bubble:hover{ transform:translateY(-2px); box-shadow:0 12px 28px rgba(0,0,0,.32); }
+#tbot-bubble img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+#tbot-composer{
+  position:fixed; left:96px; bottom:calc(26px + env(safe-area-inset-bottom));
+  display:none; align-items:center; gap:8px;
+  width:420px; max-width:72vw; z-index:10000;
+  background:#fff; border:1px solid #e5e7eb; border-radius:9999px;
+  padding:6px 8px; box-shadow:0 10px 24px rgba(0,0,0,.18);
+}
+#tbot-composer.open{ display:flex; }
+#tbot-input{
+  flex:1; border:0; outline:0; background:transparent;
+  font:14px/1.2 ui-sans-serif, system-ui; padding:6px 4px;
+}
+#tbot-send{
+  border:0; border-radius:10px; padding:8px 12px; cursor:pointer;
+  background:#6a0f18; color:#fff; font-weight:600;
+}
+
+#tbot-stack{
+  position:fixed; left:20px; bottom:calc(96px + env(safe-area-inset-bottom));
+  width:min(420px, 72vw); max-height:60vh; overflow:auto; display:none;
+  z-index:10000;
+}
+.tbot-card{
+  background:#fff; border:1px solid #e5e7eb; margin:8px 0; padding:10px 12px;
+  border-radius:12px; font:14px/1.45 ui-sans-serif, system-ui;
+  box-shadow:0 6px 12px rgba(0,0,0,.06);
+}
+.tbot-user{ background:#dbeafe; border-color:#bfdbfe; margin-left:56px }
+.tbot-bot{ background:#fff; }
 
     
     
@@ -1074,15 +1093,20 @@
 
 <!-- 
   ============================
-            LLM bot
+T-bot avatar + inline composer (bottom-left)
   ============================
 -->    
-<a href="https://chatgpt.com/g/g-6865f26998f881918f11472e5a1f01ec-t-bot" 
-   target="_blank" 
-   id="floating-avatar" 
-   title="Chat with Thibaut’s AI Assistant">
-  <img src="Images/Mini_Me_transparent.png" alt="T-bot" />
-</a>
+<div id="tbot-bubble" title="Chat with T-bot" aria-label="Chat with T-bot">
+  <img src="Images/Mini_Me_transparent.png" alt="T-bot avatar" />
+</div>
+
+<form id="tbot-composer" autocomplete="off" role="search">
+  <input id="tbot-input" placeholder="Ask T-bot…" maxlength="800" />
+  <button id="tbot-send" type="submit" aria-label="Send">Send</button>
+</form>
+
+<div id="tbot-stack" aria-live="polite"></div>
+
 
   
 <!-- 
