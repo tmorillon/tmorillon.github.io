@@ -664,9 +664,22 @@
     }
 
 
-/* ===== Tablet tweaks (<= 900px) ===== */
+/* =================================================
+   Tablet tweaks (<= 900px)
+   ============================================== */
 @media (max-width: 900px){
-  /* Remove big left offset, let content center */
+  /* Header: tighter + allow wrapping */
+  header{ padding: .6rem 1rem; }
+  header .container{ gap: .75rem; flex-wrap: wrap; align-items: center; }
+  header h1{
+    font-size: clamp(1.2rem, 3.8vw, 1.5rem);
+    line-height: 1.15;
+    max-width: 62vw;  /* reduces chance of 3 lines */
+    margin: 0;
+  }
+  nav ul{ flex-wrap: wrap; gap: .75rem; }
+
+  /* Content (keeps your existing tablet tweaks) */
   .hero{
     margin: 1.25rem auto;
     max-width: 92vw;
@@ -678,17 +691,35 @@
     max-width: 92vw;
     padding: 1.25rem;
   }
-  nav ul{ flex-wrap: wrap; gap: 0.75rem; }
 }
 
+
 /* =================================================
-    Phone tweaks (<= 640px) 
-    ============================================== */
+   Phone tweaks (<= 640px)
+   ============================================== */
 @media (max-width: 640px){
-  /* iOS Safari + fixed backgrounds = jank. Disable 'fixed'. */
+  /* iOS + fixed backgrounds = jank */
   body{ background-attachment: scroll; }
 
-  /* Stack hero vertically, shrink portrait a bit */
+  /* Header: 2-line name, hide "Theme:" label */
+  header{ padding: .5rem .85rem; }
+  header .container{ gap: .6rem; }
+  header h1{
+    font-size: clamp(1rem, 6vw, 1.35rem);
+    line-height: 1.15;
+    max-width: 55vw;   /* forces ~2 lines, not 3 */
+    margin: 0;
+  }
+  .theme-label{ display: none; }  /* keep only the icon */
+
+  /* (Optional) small header avatar — only shows if you add the <img> in HTML */
+  .header-avatar{ display: block; width: 36px; height: 36px; border-radius: 9999px; object-fit: cover; }
+
+  /* Nav */
+  nav ul{ flex-wrap: wrap; }
+  nav ul li a{ font-size: 1rem; }
+
+  /* Content */
   .hero{
     flex-direction: column;
     align-items: center;
@@ -700,53 +731,41 @@
   .hero.has-image .hero-text{ max-width: 100%; }
   .hero-img img{ width: 150px; }
 
-  /* Sections: full width with soft padding */
   section{
     margin: 1rem auto;
     max-width: 94vw;
     padding: 1rem 1rem 1.25rem;
   }
 
-  /* Type scale down a touch for tight screens */
   .hero-text p, section p{ font-size: 1rem; }
 
-  /* Hide the big award logo on mobile so text doesn’t collide */
+  /* Hide the big award logo so text doesn't collide */
   .pub-note.award-logo{ padding-right: 0; }
-  .pub-note.award-logo::after{ display:none; }
+  .pub-note.award-logo::after{ display: none; }
 
-  /* Nav wraps and reads nicely */
-  nav ul{ flex-wrap: wrap; }
-  nav ul li a{ font-size: 1rem; }
-
-  /* T-bot UI: span the safe area at bottom-right */
+  /* T-bot UI spans safe area at bottom */
   #tbot-composer{ left: 12px; right: 12px; width: auto; }
   #tbot-stack{ left: 12px; right: 12px; width: auto; max-height: 50vh; }
-  #tbot-bubble{ left: 12px; width: 96px; }
-}
 
-    /* === Phone: make avatar + UP button a bit smaller === */
-@media (max-width: 640px){
-  /* Avatar bubble (bottom-left) */
+  /* Smaller avatar bubble + UP button */
   #tbot-bubble{
-    width: 82px;                              /* ↓ from ~96–120px */
-    left: 10px;
+    left: 12px;
+    width: 82px;
     bottom: calc(14px + env(safe-area-inset-bottom));
     filter: drop-shadow(0 4px 10px rgba(0,0,0,.20));
   }
-
-  /* “UP” button (bottom-right) */
   #scrollTopBtn{
     right: 12px;
     bottom: calc(12px + env(safe-area-inset-bottom));
-    font-size: 0.95rem;
+    font-size: .95rem;
     padding: 10px 12px;
     border-radius: 5px;
   }
-
-  /* (Optional) if you want a touch more clearance for the composer/bubbles */
-  /* #tbot-composer{ bottom: calc(18px + env(safe-area-inset-bottom)); }
-     #tbot-stack{ bottom: calc(88px + env(safe-area-inset-bottom)); max-height: 52vh; } */
 }
+
+/* Hidden by default; shown only on phones via rule above */
+.header-avatar{ display: none; }
+
 
     
   
@@ -764,6 +783,7 @@
 <body>
   <header>
     <div class="container">
+      <img class="header-avatar" src="Images/Mini_Me_transparent.png" alt="Avatar" />
       <h1>Thibaut G. Morillon</h1>
       <nav>
         <ul>
