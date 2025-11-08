@@ -692,7 +692,7 @@
   /* Row 1: avatar right (tap to open chat, JS already added) */
   .header-avatar{
     order: 2;
-    display: block;
+    display: block !important;
     margin-left: auto;           /* pushes avatar to the right */
     width: 36px; height: 36px; border-radius: 9999px; object-fit: cover;
     cursor: pointer;
@@ -705,16 +705,22 @@
     flex-basis: 100%;            /* forces next items to a new line */
   }
 
-  /* Row 2: theme icon first, hide the 'Theme:' word */
+  /* Row 2: theme icon FIRST, then nav — keep them close */
   .theme-label{ display: none; }
-  .theme-toggle{ order: 4; }
+  .theme-toggle{ order: 4; margin-right: .4rem; }   /* smaller gap before Home */
+  header nav{
+    order: 5;
+    flex: 0 0 auto;        /* don't stretch; sit right after the icon */
+    margin-left: 0 !important;  /* override any desktop push-right */
+  }
+  nav ul{
+    flex-wrap: wrap;
+    gap: .6rem;            /* tighter link spacing */
+    padding-left: 0;       /* remove any default list padding */
+    justify-content: flex-start;
+  }
 
-  /* Row 2: nav links after the icon */
-  header nav{ order: 5; flex: 1; }
-  nav ul{ flex-wrap: wrap; gap: .9rem; justify-content: flex-start; }
-  nav ul li a{ font-size: 1rem; }
-
-  /* Content layout (unchanged from your good mobile setup) */
+  /* Content layout */
   .hero{
     flex-direction: column;
     align-items: center;
@@ -754,8 +760,6 @@
 
 /* Hidden by default; shown only on phones via rule above */
 .header-avatar{ display: none; }
-
-
     
   
    
