@@ -681,7 +681,9 @@
   nav ul{ flex-wrap: wrap; gap: 0.75rem; }
 }
 
-/* ===== Phone tweaks (<= 640px) ===== */
+/* =================================================
+    Phone tweaks (<= 640px) 
+    ============================================== */
 @media (max-width: 640px){
   /* iOS Safari + fixed backgrounds = jank. Disable 'fixed'. */
   body{ background-attachment: scroll; }
@@ -720,6 +722,30 @@
   #tbot-composer{ left: 12px; right: 12px; width: auto; }
   #tbot-stack{ left: 12px; right: 12px; width: auto; max-height: 50vh; }
   #tbot-bubble{ left: 12px; width: 96px; }
+}
+
+    /* === Phone: make avatar + UP button a bit smaller === */
+@media (max-width: 640px){
+  /* Avatar bubble (bottom-left) */
+  #tbot-bubble{
+    width: 82px;                              /* ↓ from ~96–120px */
+    left: 10px;
+    bottom: calc(14px + env(safe-area-inset-bottom));
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,.20));
+  }
+
+  /* “UP” button (bottom-right) */
+  #scrollTopBtn{
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    font-size: 0.95rem;
+    padding: 10px 12px;
+    border-radius: 5px;
+  }
+
+  /* (Optional) if you want a touch more clearance for the composer/bubbles */
+  /* #tbot-composer{ bottom: calc(18px + env(safe-area-inset-bottom)); }
+     #tbot-stack{ bottom: calc(88px + env(safe-area-inset-bottom)); max-height: 52vh; } */
 }
 
     
