@@ -1,6 +1,8 @@
 (() => {
   // If your backend is same-origin, leave as-is. Otherwise set to your API URL.
-  const ENDPOINT = "/api/tbot";
+  // script/T_bot.js
+  const ENDPOINT = "https://tbot-api.vercel.app/api/tbot";
+
 
   const $bubble = document.getElementById('tbot-bubble');
   const $composer = document.getElementById('tbot-composer');
