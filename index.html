@@ -123,7 +123,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      max-width: 880;
+      max-width: 880px;
       margin: 2rem auto 2rem calc(12% + 40px);
       padding-top: 1.5rem;
       padding: 2rem;
@@ -662,6 +662,68 @@
       font-size: 0.9rem;
       color: #555;
     }
+
+
+/* ===== Tablet tweaks (<= 900px) ===== */
+@media (max-width: 900px){
+  /* Remove big left offset, let content center */
+  .hero{
+    margin: 1.25rem auto;
+    max-width: 92vw;
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+  section{
+    margin: 1.25rem auto;
+    max-width: 92vw;
+    padding: 1.25rem;
+  }
+  nav ul{ flex-wrap: wrap; gap: 0.75rem; }
+}
+
+/* ===== Phone tweaks (<= 640px) ===== */
+@media (max-width: 640px){
+  /* iOS Safari + fixed backgrounds = jank. Disable 'fixed'. */
+  body{ background-attachment: scroll; }
+
+  /* Stack hero vertically, shrink portrait a bit */
+  .hero{
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    margin: 1rem auto;
+    max-width: 94vw;
+    padding: 1rem 1rem 1.25rem;
+  }
+  .hero.has-image .hero-text{ max-width: 100%; }
+  .hero-img img{ width: 150px; }
+
+  /* Sections: full width with soft padding */
+  section{
+    margin: 1rem auto;
+    max-width: 94vw;
+    padding: 1rem 1rem 1.25rem;
+  }
+
+  /* Type scale down a touch for tight screens */
+  .hero-text p, section p{ font-size: 1rem; }
+
+  /* Hide the big award logo on mobile so text doesn’t collide */
+  .pub-note.award-logo{ padding-right: 0; }
+  .pub-note.award-logo::after{ display:none; }
+
+  /* Nav wraps and reads nicely */
+  nav ul{ flex-wrap: wrap; }
+  nav ul li a{ font-size: 1rem; }
+
+  /* T-bot UI: span the safe area at bottom-right */
+  #tbot-composer{ left: 12px; right: 12px; width: auto; }
+  #tbot-stack{ left: 12px; right: 12px; width: auto; max-height: 50vh; }
+  #tbot-bubble{ left: 12px; width: 96px; }
+}
+
+    
+  
    
   </style>  
   <link rel="canonical" href="https://thibautmorillon.com/" />
