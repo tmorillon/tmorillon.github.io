@@ -672,94 +672,76 @@
   body{ background-attachment: scroll; }
 
   /* Header: two rows; reserve right space for avatar */
-  header{ padding: .5rem .85rem; }
+  header{ padding: .48rem .85rem; }
   header .container{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: .6rem;
-    position: relative;      /* for absolute avatar */
-    padding-right: 56px;     /* room so text/links don't run under avatar */
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: .4rem;                       /* tighter gap */
+    position: relative;               /* for absolute avatar */
+    padding-right: 60px;              /* room so text/links don't run under avatar */
   }
 
-  /* Row 1: name (slightly smaller so it fits on 2 lines) */
+  /* Row 1: name — slightly smaller so it stays on 2 lines */
   header h1{
     order: 1;
-    font-size: clamp(1rem, 5.6vw, 1.45rem);
+    font-size: clamp(1.02rem, 5.4vw, 1.42rem);
     line-height: 1.12;
-    max-width: 60vw;         /* gives enough room for 2 lines */
+    max-width: 60vw;
     margin: 0;
   }
 
-  /* Avatar spans both rows at top-right — no circular crop */
+  /* Avatar: no circle, confined to the band, spans visually both rows */
   .header-avatar{
     display: block !important;
-    position: absolute;
-    right: 6px; top: 6px;
-    width: 44px; height: 44px;              /* taller → visually spans both rows */
-    border-radius: 0 !important;            /* remove circle */
+    position: absolute; right: 8px; top: 4px;
+    height: 48px; width: auto;       /* <-- keeps it inside the band */
+    border-radius: 0 !important;     /* no circular crop */
     background: transparent;
-    object-fit: contain;                    /* no cropping */
-    z-index: 2;
+    object-fit: contain;
     cursor: pointer;
+    z-index: 2;
   }
 
   /* Hard break before Row 2 */
-  header .container::after{
-    content: "";
-    order: 3;
-    flex-basis: 100%;
-  }
+  header .container::after{ content:""; order:3; flex-basis:100%; }
 
-  /* Row 2: theme icon first, then tighter/smaller nav */
-  .theme-label{ display: none; }
-  .theme-toggle{ order: 4; margin-right: .35rem; }
-  header nav{ order: 5; flex: 0 0 auto; margin-left: 0 !important; }
-  nav ul{ flex-wrap: wrap; gap: .5rem; padding-left: 0; justify-content: flex-start; }
-  nav ul li a{ font-size: .95rem; }
+  /* Row 2: theme icon then nav; tighter spacing */
+  .theme-label{ display:none; }
+  .theme-toggle{ order:4; margin-right:.28rem; }
+  header nav{ order:5; flex:0 0 auto; margin-left:0 !important; }
+  nav ul{ flex-wrap:wrap; gap:.45rem; padding-left:0; margin:0; justify-content:flex-start; }
+  nav ul li a{ font-size:.93rem; line-height:1.1; }
 
-  /* Content layout (unchanged) */
+  /* Content */
   .hero{
-    flex-direction: column;
-    align-items: center;
-    text-align: left;
-    margin: 1rem auto;
-    max-width: 94vw;
-    padding: 1rem 1rem 1.25rem;
+    flex-direction: column; align-items: center; text-align:left;
+    margin: 1rem auto; max-width:94vw; padding:1rem 1rem 1.25rem;
   }
-  .hero.has-image .hero-text{ max-width: 100%; }
-  .hero-img img{ width: 150px; }
+  .hero.has-image .hero-text{ max-width:100%; }
+  .hero-img img{ width:150px; }
 
   section{
-    margin: 1rem auto;
-    max-width: 94vw;
-    padding: 1rem 1rem 1.25rem;
+    margin:1rem auto; max-width:94vw; padding:1rem 1rem 1.25rem;
   }
-  .hero-text p, section p{ font-size: 1rem; }
+  .hero-text p, section p{ font-size:1rem; }
 
-  /* Hide the big award logo so text doesn't collide */
-  .pub-note.award-logo{ padding-right: 0; }
-  .pub-note.award-logo::after{ display: none; }
+  .pub-note.award-logo{ padding-right:0; }
+  .pub-note.award-logo::after{ display:none; }
 
-  /* T-bot UI on phones; hide floating bubble */
-  #tbot-bubble{ display: none !important; }
-  #tbot-composer{ left: 12px; right: 12px; width: auto; }
-  #tbot-stack{ left: 12px; right: 12px; width: auto; max-height: 50vh; }
+  /* T-bot on phones; hide floating bubble */
+  #tbot-bubble{ display:none !important; }
+  #tbot-composer{ left:12px; right:12px; width:auto; }
+  #tbot-stack{ left:12px; right:12px; width:auto; max-height:50vh; }
 
   /* Smaller UP button */
   #scrollTopBtn{
-    right: 12px;
-    bottom: calc(12px + env(safe-area-inset-bottom));
-    font-size: .95rem;
-    padding: 10px 12px;
-    border-radius: 5px;
+    right:12px; bottom:calc(12px + env(safe-area-inset-bottom));
+    font-size:.95rem; padding:10px 12px; border-radius:5px;
   }
 }
 
 /* Hidden by default; shown only on phones via rule above */
-.header-avatar{ display: none; }
+.header-avatar{ display:none; }
 
-  
    
   </style>  
   <link rel="canonical" href="https://thibautmorillon.com/" />
