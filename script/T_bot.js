@@ -10,6 +10,15 @@
   const $send = document.getElementById('tbot-send');
   const $stack = document.getElementById('tbot-stack');
 
+  // Allow the header avatar (mobile) to toggle the composer
+  const headerAvatar = document.querySelector('.header-avatar');
+  if (headerAvatar) {
+    headerAvatar.addEventListener('click', () => {
+      $composer.classList.contains('open') ? closeComposer() : openComposer();
+    });
+  }
+
+
   let history = [];
   let pending = false;
   let hoverTimer = null;
