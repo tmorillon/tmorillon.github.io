@@ -577,25 +577,29 @@
     /* ============================
        T-bot bottom-left avatar & inline composer
     ============================ */
+/* Bigger avatar, no visible rectangle */
 #tbot-bubble{
-  position:fixed; left:20px; bottom:20px; z-index:10000;
-  width:84px; height:112px;              /* taller box to fit full avatar */
-  border-radius:16px;                     /* rounded rectangle (not a crop circle) */
-  background:transparent;                 /* <- remove red background */
-  box-shadow:0 8px 24px rgba(0,0,0,.12);
-  overflow:hidden;                        /* keeps the rounded shape clean */
+  position:fixed; left:20px; bottom:calc(20px + env(safe-area-inset-bottom));
+  z-index:10000;
+  width:120px;              /* ← bump size (tune to taste) */
+  height:auto;              /* natural height */
+  background:transparent;   /* no colored disk */
+  border:none;
+  box-shadow:none;          /* remove box shadow on the container */
+  overflow:visible;         /* don't crop the image */
   cursor:pointer;
 }
 #tbot-bubble img{
-  width:100%; height:100%;
-  object-fit:contain;                     /* <- show the whole image */
-  object-position:center bottom;          /* anchor toward bottom so body fits */
-  display:block;                          /* no gaps */
+  width:100%; height:auto; display:block;
+  object-fit:contain;       /* show the whole body */
+  object-position:center bottom;
+  /* nice silhouette shadow that follows transparency instead of a rectangle: */
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
 }
 
 
 #tbot-composer{
-  position:fixed; left:96px; bottom:calc(26px + env(safe-area-inset-bottom));
+  position:fixed; left:160px; bottom:calc(26px + env(safe-area-inset-bottom));
   display:none; align-items:center; gap:8px;
   width:420px; max-width:72vw; z-index:10000;
   background:#fff; border:1px solid #e5e7eb; border-radius:9999px;
@@ -1134,7 +1138,7 @@ T-bot avatar + inline composer (bottom-left)
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 <script src="script/typed_init.js"></script>
 
-<script src="js/T-bot.js" defer></script>
+<script src="js/T_bot.js" defer></script>
 
 
 
