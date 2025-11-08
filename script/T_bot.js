@@ -63,7 +63,9 @@
 
     const data = await res.json();
     if (!res.ok) {
-      placeholder.textContent = data.error || 'Server error';
+      placeholder.textContent =
+      (data && (data.detail || data.error)) || 'Server error';
+
       pending = false; $send.disabled = false;
       return;
     }
