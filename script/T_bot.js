@@ -56,14 +56,21 @@
     pending = true; $send.disabled = true;
     try{
       const res = await fetch(ENDPOINT, {
-        method:'POST',
-        headers:{ 'Content-Type':'application/json' },
-        body: JSON.stringify({ messages: history.slice(-20) })
-      });
-      const data = await res.json();
-      const reply = data.reply || '(no reply)';
-      placeholder.textContent = reply;
-      history.push({ role:'assistant', content: reply });
+      method:'POST',
+      headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({ messages: history.slice(-20) })
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      placeholder.textContent = data.error || 'Server error';
+      pending = false; $send.disabled = false;
+      return;
+    }
+
+const reply = data.reply || '(no reply)';
+placeholder.textContent = reply;
+history.push({ role:'assistant', content: reply });
     }catch(err){
       placeholder.textContent = 'Error contacting T-bot.';
     }finally{
