@@ -665,58 +665,37 @@
 
 
 /* =================================================
-   Tablet tweaks (<= 900px)
-   ============================================== */
-@media (max-width: 900px){
-  /* Header: tighter + allow wrapping */
-  header{ padding: .6rem 1rem; }
-  header .container{ gap: .75rem; flex-wrap: wrap; align-items: center; }
-  header h1{
-    font-size: clamp(1.2rem, 3.8vw, 1.5rem);
-    line-height: 1.15;
-    max-width: 62vw;  /* reduces chance of 3 lines */
-    margin: 0;
-  }
-  nav ul{ flex-wrap: wrap; gap: .75rem; }
-
-  /* Content (keeps your existing tablet tweaks) */
-  .hero{
-    margin: 1.25rem auto;
-    max-width: 92vw;
-    padding: 1.25rem;
-    gap: 1rem;
-  }
-  section{
-    margin: 1.25rem auto;
-    max-width: 92vw;
-    padding: 1.25rem;
-  }
-}
-
-
-/* =================================================
    Phone tweaks (<= 640px)
    ============================================== */
 @media (max-width: 640px){
   /* iOS + fixed backgrounds = jank */
   body{ background-attachment: scroll; }
 
-  /* Header: 2-line name, hide "Theme:" label */
+  /* Make header wrap into two rows */
   header{ padding: .5rem .85rem; }
-  header .container{ gap: .6rem; }
+  header .container{ gap: .6rem; flex-wrap: wrap; align-items: center; }
+
+  /* Row 1: name left, avatar right */
   header h1{
+    order: 1;
     font-size: clamp(1rem, 6vw, 1.35rem);
     line-height: 1.15;
     max-width: 55vw;   /* forces ~2 lines, not 3 */
     margin: 0;
   }
-  .theme-label{ display: none; }  /* keep only the icon */
+  .header-avatar{
+    order: 2;
+    display: block;
+    margin-left: auto;           /* pushes avatar to the right */
+    width: 36px; height: 36px; border-radius: 9999px; object-fit: cover;
+    cursor: pointer;
+  }
 
-  /* (Optional) small header avatar — only shows if you add the <img> in HTML */
-  .header-avatar{ display: block; width: 36px; height: 36px; border-radius: 9999px; object-fit: cover; }
-
-  /* Nav */
-  nav ul{ flex-wrap: wrap; }
+  /* Row 2: theme icon FIRST, then nav */
+  .theme-label{ display: none; } /* hide "Theme:" word */
+  .theme-toggle{ order: 3; margin-right: .6rem; }
+  header nav{ order: 4; flex: 1; }
+  nav ul{ flex-wrap: wrap; gap: .9rem; justify-content: flex-start; }
   nav ul li a{ font-size: 1rem; }
 
   /* Content */
@@ -743,17 +722,12 @@
   .pub-note.award-logo{ padding-right: 0; }
   .pub-note.award-logo::after{ display: none; }
 
-  /* T-bot UI spans safe area at bottom */
+  /* T-bot UI spans safe area at bottom; hide floating bubble on phones */
+  #tbot-bubble{ display: none !important; }
   #tbot-composer{ left: 12px; right: 12px; width: auto; }
   #tbot-stack{ left: 12px; right: 12px; width: auto; max-height: 50vh; }
 
-  /* Smaller avatar bubble + UP button */
-  #tbot-bubble{
-    left: 12px;
-    width: 82px;
-    bottom: calc(14px + env(safe-area-inset-bottom));
-    filter: drop-shadow(0 4px 10px rgba(0,0,0,.20));
-  }
+  /* Smaller UP button */
   #scrollTopBtn{
     right: 12px;
     bottom: calc(12px + env(safe-area-inset-bottom));
