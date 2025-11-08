@@ -675,10 +675,14 @@
   header{ padding: .48rem .85rem; }
   header .container{
     display: flex; flex-wrap: wrap; align-items: center;
-    gap: .4rem;                       /* tighter gap */
-    position: relative;               /* for absolute avatar */
-    padding-right: 60px;              /* room so text/links don't run under avatar */
+    gap: .4rem;
+    position: relative;
+    /* Reserve space on the right that matches the avatar width */
+    --avaW: 52px;          /* ← tweak this to make the avatar wider/narrower */
+    --avaRight: 8px;       /* distance from right edge */
+    padding-right: calc(var(--avaW) + var(--avaRight) + 6px);
   }
+
 
   /* Row 1: name — slightly smaller so it stays on 2 lines */
   header h1{
@@ -692,14 +696,17 @@
   /* Avatar: no circle, confined to the band, spans visually both rows */
   .header-avatar{
     display: block !important;
-    position: absolute; right: 8px; top: 4px;
-    height: 56px; width: 44px;       /* <-- keeps it inside the band */
-    border-radius: 0 !important;     /* no circular crop */
+    position: absolute; right: var(--avaRight); top: 4px;
+    width: var(--avaW);      /* ← controlled by the variable above */
+    height: auto;
+    max-height: 56px;        /* stays inside the band */
+    border-radius: 0 !important;    /* no circular crop */
     background: transparent;
     object-fit: contain;
     cursor: pointer;
     z-index: 2;
-  }
+  }  
+
 
   /* Hard break before Row 2 */
   header .container::after{ content:""; order:3; flex-basis:100%; }
