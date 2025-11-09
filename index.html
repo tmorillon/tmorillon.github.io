@@ -25,27 +25,15 @@
       --box-color: #ffffff;
     }
 
-  body {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    color: var(--text-color);
-    /* use a fast WebP set; fall back to the original PNG if needed */
-    background:
-      var(--bg-color)
-      image-set(
-        url("Images/elon_campus_320.webp") 320w,
-        url("Images/elon_campus_800.webp") 800w,
-        url("Images/elon_campus_1600.webp") 1600w,
-        url("Images/elon_campus_2400.webp") 2400w
-      )
-      center/cover no-repeat;
-    /* fallback for browsers without image-set */
-    background-image: url("Images/elon_campus_1600.webp");
-    position: relative;
-  }
-
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      color: var(--text-color);
+      background: var(--bg-color) url("Images/Elon Campus pic5 one flag.png") center/cover no-repeat fixed;
+      position: relative;
+    }
 
     body::before {
       content: "";
@@ -253,32 +241,16 @@
  /* ============================
      #Research & Teaching
   ============================ */  
-    #research{
+    #research {
       background:
-        linear-gradient(rgba(var(--bg-overlay,255,255,255),0.90), rgba(var(--bg-overlay,255,255,255),0.90)),
-        image-set(
-          url('Images/Research_640.webp') 640w,
-          url('Images/Research_1280.webp') 1280w
-        ) center/cover no-repeat;
-    }
-    #teaching{
+        linear-gradient(rgba(var(--bg-overlay, 255,255,255), 0.90), rgba(var(--bg-overlay, 255,255,255), 0.90)),
+        url('Images/Research.jpg') center/cover no-repeat;
+    } 
+    #teaching {
       background:
-        linear-gradient(rgba(var(--bg-overlay,255,255,255),0.90), rgba(var(--bg-overlay,255,255,255),0.90)),
-        image-set(
-          url('Images/Teaching_640.webp') 640w,
-          url('Images/Teaching_1280.webp') 1280w
-        ) center/cover no-repeat;
+        linear-gradient(rgba(var(--bg-overlay, 255,255,255), 0.90), rgba(var(--bg-overlay, 255,255,255), 0.90)),
+        url('Images/Teaching.jpg') center/cover no-repeat;
     }
-    /* Small viewports: use the tiny versions explicitly */
-    @media (max-width: 640px){
-      #research{ background-image:
-        linear-gradient(rgba(var(--bg-overlay,255,255,255),0.90), rgba(var(--bg-overlay,255,255,255),0.90)),
-        url('Images/Research_640.webp'); }
-        #teaching{ background-image:
-        linear-gradient(rgba(var(--bg-overlay,255,255,255),0.90), rgba(var(--bg-overlay,255,255,255),0.90)),
-        url('Images/Teaching_640.webp'); }
-    }
-
 
     body.dark #research,
     body.dark #teaching {
@@ -891,18 +863,7 @@ body.dark .header-avatar-link::before{
       </div>
     </div>
     <div class="hero-img">
-      <img
-      src="Images/TM_photo_400.webp"
-      srcset="
-        Images/TM_photo_200.webp 200w,
-        Images/TM_photo_400.webp 400w,
-        Images/TM_photo_600.webp 600w"
-      sizes="(max-width: 640px) 150px, 200px"
-      alt="Thibaut G. Morillon"
-      width="200" height="200"
-      loading="eager"
-      decoding="async"
-      fetchpriority="high">
+      <img src="Images/TM_photo.jpg" alt="Thibaut G. Morillon" loading="lazy" decoding="async" width="200" height="200">
     </div>
   </section>
 
