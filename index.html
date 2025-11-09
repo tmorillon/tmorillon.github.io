@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Thibaut G. Morillon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;700&display=swap" rel="stylesheet"> 
@@ -117,7 +119,8 @@
                Hero
     ============================ */  
     .hero {
-      background: linear-gradient(rgba(255,255,255,0.90), rgba(255,255,255,0.90));
+      background: linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55));
+      backdrop-filter: blur(2px);
       border-radius: 10px;
       box-shadow: 0 6px 12px rgba(0,0,0,0.06);
       display: flex;
@@ -791,7 +794,7 @@
       </div>
     </div>
     <div class="hero-img">
-      <img src="Images/TM_photo.jpg" alt="Thibaut G. Morillon">
+      <img src="Images/TM_photo.jpg" alt="Thibaut G. Morillon" loading="lazy" decoding="async" width="200" height="200">
     </div>
   </section>
 
@@ -1211,17 +1214,13 @@
   ============================
 -->
 
-<script src="https://unpkg.com/scrollreveal"></script>
-<script src="script/ScrollReveal.js"></script>
-  
-<script src="script/UP_Btn.js"></script>
-  
-<script src="script/toggle_Btn.js"></script>
-  
-<script src="script/nav_highlight.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-<script src="script/typed_init.js"></script>
+<script src="https://unpkg.com/scrollreveal" defer></script>
+<script src="script/ScrollReveal.js" defer></script>
+<script src="script/UP_Btn.js" defer></script>
+<script src="script/toggle_Btn.js" defer></script>
+<script src="script/nav_highlight.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer></script>
+<script src="script/typed_init.js" defer></script>
 
 <!-- <script src="script/T_bot.js" defer></script> -->
 
