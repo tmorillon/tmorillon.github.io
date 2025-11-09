@@ -572,8 +572,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
-    
     
     
     
@@ -589,6 +587,30 @@
       color: #555;
     }
 
+
+    /* Simple bottom-left avatar that links to your GPT */
+    #tbot-link{
+      position: fixed;
+      left: 16px;
+      bottom: calc(16px + env(safe-area-inset-bottom));
+      z-index: 10000;
+      display: block;
+      width: 90px;        /* tweak size if you want */
+      height: auto;
+      cursor: pointer;
+    }
+    #tbot-link:hover{ transform: translateY(-1px); }
+    #tbot-link img{
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;                 /* shows the full body if PNG is transparent */
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
+    }
+
+
+
+    
 
 /* =================================================
    Phone tweaks (<= 640px)
@@ -669,6 +691,28 @@
   }
 }
 
+  /* Hide bottom bubble on phones */
+  #tbot-link{ display: none; }
+
+  /* Header avatar as a link (top-right) */
+  .header-avatar-link{
+    position: absolute;
+    right: 8px;
+    top: 4px;
+    height: 56px;           /* adjust height to taste */
+    display: block;
+    z-index: 2;
+  }
+  .header-avatar{
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    border-radius: 0 !important;
+    display: block;
+    cursor: pointer;
+  }
+
+    
 /* Hidden by default; shown only on phones via rule above */
 .header-avatar{ display:none; }
 
@@ -678,6 +722,10 @@
 </head>
 
 
+
+
+
+  
 <!-- 
   ============================
           Body Starts
@@ -1133,6 +1181,18 @@
   </footer>
 
 
+<!-- 
+  ============================
+            LLM Bot
+  ============================
+-->    
+<!-- Simple T-bot link bubble (opens GPT in a new tab) -->
+<a id="tbot-link" href="https://chatgpt.com/g/g-6865f26998f881918f11472e5a1f01ec-t-bot"
+   target="_blank" rel="noopener" title="Chat with T-bot">
+  <img src="Images/Mini_Me_transparent.png" alt="T-bot" />
+</a>
+
+  
   
 <!-- 
   ============================
