@@ -119,8 +119,7 @@
                Hero
     ============================ */  
     .hero {
-      background: linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55));
-      backdrop-filter: blur(2px);
+      background: linear-gradient(rgba(255,255,255,0.90), rgba(255,255,255,0.90));
       border-radius: 10px;
       box-shadow: 0 6px 12px rgba(0,0,0,0.06);
       display: flex;
@@ -322,9 +321,9 @@
     }
 
     /* ============================
-            darkModeToggle
+        darkModeToggle
     ============================ */     
-   #darkModeToggle {
+    #darkModeToggle {
       background: none;
       border: none;
       font-size: 1.5rem;
@@ -357,8 +356,7 @@
       background: linear-gradient(rgba(106, 15, 24, 0.90), rgba(106, 15, 24, 0.90));
     }
 
-
-    section:not(.fullpage-section) {
+    section:not(.fullpage-section):not(.hero) {
       background: var(--box-color);
     }
 
