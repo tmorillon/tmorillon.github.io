@@ -718,9 +718,9 @@
   font-family: 'Playfair Display', serif;
   font-size: 0.95rem;
   font-weight: 700;
-  background: #6a0f18;   /* maroon in LIGHT mode */
-  color: #ffffff;        /* white text in LIGHT mode */
-  border: 2px solid #6a0f18;
+  background: #6a0f18;           /* maroon fill */
+  color: #ffffff;                 /* white text */
+  border: 2px solid #d0c29f;      /* CONTRAST: gold border */
   border-radius: 9999px;
   padding: 6px 10px;
   line-height: 1;
@@ -733,24 +733,24 @@
   content:"";
   position: absolute;
   left: 88%;
-  bottom: 44%;
+  bottom: 70%;
   transform: translateY(50%);
   width: 0; height: 0;
   border: 7px solid transparent;
-  border-right-color: #6a0f18;  /* matches maroon bubble */
-  filter: drop-shadow(1px 0 0 #6a0f18);
+  border-right-color: #6a0f18;    /* same as fill */
+  filter: drop-shadow(1px 0 0 #d0c29f); /* CONTRAST: gold edge */
 }
 
 /* Dark mode → invert bubble (white background, maroon text) */
 body.dark #tbot-link::after{
-  background: #ffffff;
-  color: #6a0f18;
-  border-color: #ffffff;
+  background: #ffffff;            /* white fill */
+  color: #6a0f18;                 /* maroon text */
+  border-color: #6a0f18;          /* CONTRAST: maroon border */
 }
 
 body.dark #tbot-link::before{
-  border-right-color: #ffffff;
-  filter: drop-shadow(1px 0 0 #ffffff);
+  border-right-color: #ffffff;    /* same as fill */
+  filter: drop-shadow(1px 0 0 #6a0f18); /* CONTRAST: maroon edge */
 }
 
 /* Hide on phones */
