@@ -706,36 +706,56 @@
     display: block;
     z-index: 2;
   }
-    /* Speech bubble for avatar (desktop) */
-  .header-avatar-link::after{
-    content: "let’s chat";
-    position: absolute;
-    right: 70px;          /* sits just left of the avatar */
-    top: 10px;
-    font-family: 'Playfair Display', serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    background: #ffffff;
-    color: #6a0f18;
-    border: 2px solid #d0c29f;
-    border-radius: 9999px;
-    padding: 6px 10px;
-    line-height: 1;
-    white-space: nowrap;
-    box-shadow: 0 4px 10px rgba(0,0,0,.12);
-  }
+   /* Speech bubble for T-bot avatar (bottom-left) */
+#tbot-link::after{
+  content: "let’s chat";
+  position: absolute;
+  left: 105%;           /* pushes bubble to the right of the avatar */
+  bottom: 50%;          /* vertically centered */
+  transform: translateY(50%); /* fine-tune vertical centering */
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  background: #ffffff;
+  color: #6a0f18;
+  border: 2px solid #d0c29f;
+  border-radius: 9999px;
+  padding: 6px 10px;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0,0,0,.12);
+  z-index: 10001;
+}
 
-  .header-avatar-link::before{
-    /* little triangle pointer */
-    content:"";
-    position: absolute;
-    right: 58px;          /* lines up with the bubble */
-    top: 22px;
-    width: 0; height: 0;
-    border: 7px solid transparent;
-    border-left-color: #ffffff;               /* triangle fill */
-    filter: drop-shadow(-1px 0 0 #d0c29f);    /* triangle border */
-  }
+#tbot-link::before{
+  content:"";
+  position: absolute;
+  left: 100%;
+  bottom: 45%;
+  transform: translateY(50%);
+  width: 0; height: 0;
+  border: 7px solid transparent;
+  border-right-color: #ffffff;
+  filter: drop-shadow(1px 0 0 #d0c29f);
+}
+
+/* Dark mode */
+body.dark #tbot-link::after{
+  background: #6a0f18;
+  color: #ffffff;
+  border-color: #d0c29f;
+}
+body.dark #tbot-link::before{
+  border-right-color: #6a0f18;
+  filter: drop-shadow(1px 0 0 #d0c29f);
+}
+
+/* Hide on phones */
+@media (max-width:640px){
+  #tbot-link::after,
+  #tbot-link::before{display:none;}
+}
+
 
 /* Dark mode colors */
 body.dark .header-avatar-link::after{
