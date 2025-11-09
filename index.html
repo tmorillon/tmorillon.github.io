@@ -706,19 +706,21 @@
     display: block;
     z-index: 2;
   }
-   /* Speech bubble for T-bot avatar (bottom-left) */
+
+    
+/* Speech bubble for T-bot avatar (bottom-left) */
 #tbot-link::after{
   content: "let’s chat";
   position: absolute;
-  left: 92%;           /* pushes bubble to the right of the avatar */
-  bottom: 48%;          /* vertically centered */
-  transform: translateY(50%); /* fine-tune vertical centering */
+  left: 88%;             /* sits near avatar mouth */
+  bottom: 56%;
+  transform: translateY(50%);
   font-family: 'Playfair Display', serif;
   font-size: 0.95rem;
   font-weight: 700;
-  background: #ffffff;
-  color: #6a0f18;
-  border: 2px solid #d0c29f;
+  background: #6a0f18;   /* maroon in LIGHT mode */
+  color: #ffffff;        /* white text in LIGHT mode */
+  border: 2px solid #6a0f18;
   border-radius: 9999px;
   padding: 6px 10px;
   line-height: 1;
@@ -735,25 +737,26 @@
   transform: translateY(50%);
   width: 0; height: 0;
   border: 7px solid transparent;
-  border-right-color: #ffffff;
-  filter: drop-shadow(1px 0 0 #d0c29f);
+  border-right-color: #6a0f18;  /* matches maroon bubble */
+  filter: drop-shadow(1px 0 0 #6a0f18);
 }
 
-/* Dark mode */
+/* Dark mode → invert bubble (white background, maroon text) */
 body.dark #tbot-link::after{
-  background: #6a0f18;
-  color: #ffffff;
-  border-color: #d0c29f;
+  background: #ffffff;
+  color: #6a0f18;
+  border-color: #ffffff;
 }
+
 body.dark #tbot-link::before{
-  border-right-color: #6a0f18;
-  filter: drop-shadow(1px 0 0 #d0c29f);
+  border-right-color: #ffffff;
+  filter: drop-shadow(1px 0 0 #ffffff);
 }
 
 /* Hide on phones */
 @media (max-width:640px){
   #tbot-link::after,
-  #tbot-link::before{display:none;}
+  #tbot-link::before{ display:none; }
 }
 
 
