@@ -32,7 +32,7 @@
       padding: 0;
       line-height: 1.6;
       color: var(--text-color);
-      background: var(--bg-color) url("Images/Elon Campus pic5 one flag.png") center/cover no-repeat;
+      background: var(--bg-color) url("Images/Elon Campus pic5 one flag.png") center/cover no-repeat fixed;
       position: relative;
     }
 
@@ -43,7 +43,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.08);
       z-index: -1;
     }
 
@@ -864,7 +864,7 @@ body.dark .header-avatar-link::before{
       </div>
     </div>
     <div class="hero-img">
-      <img src="Images/TM_photo.jpg" alt="Thibaut G. Morillon" loading="lazy" decoding="async" width="200" height="200">
+      <img src="Images/TM_photo.jpg" alt="Thibaut G. Morillon" loading="eager" fetchpriority="high" decoding="async" width="200" height="200">
     </div>
   </section>
 
