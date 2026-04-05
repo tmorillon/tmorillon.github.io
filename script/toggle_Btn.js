@@ -2,8 +2,8 @@
     const toggleBtn = document.getElementById('darkModeToggle');
     const body = document.body;
 
-    // Load saved theme from localStorage
-    if (localStorage.getItem('theme') === 'dark') {
+    // Load saved theme from localStorage (default: dark)
+    if (localStorage.getItem('theme') !== 'light') {
       body.classList.add('dark');
     }
 
