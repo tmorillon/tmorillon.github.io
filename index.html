@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thibaut G. Morillon - Personal Website</title>
+  <title>Thibaut G. Morillon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="Images/Elon Campus pic5 one flag.png" as="image">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;700&display=swap" rel="stylesheet"> 
@@ -40,7 +43,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.08);
       z-index: -1;
     }
 
@@ -123,8 +126,8 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      max-width: 880;
-      margin: 2rem auto 2rem 12%;
+      max-width: 880px;
+      margin: 2rem auto 2rem 14%;
       padding-top: 1.5rem;
       padding: 2rem;
 
@@ -215,7 +218,7 @@
     ============================ */  
     section {
       max-width: 880px;
-      margin: 2rem auto 2rem 12%;
+      margin: 2rem auto 2rem 14%;
       background: #fff;
       border-radius: 10px;
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
@@ -319,9 +322,9 @@
     }
 
     /* ============================
-            darkModeToggle
+        darkModeToggle
     ============================ */     
-   #darkModeToggle {
+    #darkModeToggle {
       background: none;
       border: none;
       font-size: 1.5rem;
@@ -354,8 +357,7 @@
       background: linear-gradient(rgba(106, 15, 24, 0.90), rgba(106, 15, 24, 0.90));
     }
 
-
-    section:not(.fullpage-section) {
+    section:not(.fullpage-section):not(.hero) {
       background: var(--box-color);
     }
 
@@ -573,7 +575,6 @@
       -webkit-text-fill-color: transparent;
     }
     
-
     
     
     /* ============================
@@ -587,12 +588,219 @@
       font-size: 0.9rem;
       color: #555;
     }
+
+
+    /* Simple bottom-left avatar that links to your GPT */
+    #tbot-link{
+      position: fixed;
+      left: 16px;
+      bottom: calc(16px + env(safe-area-inset-bottom));
+      z-index: 10000;
+      display: block;
+      width: 90px;        /* tweak size if you want */
+      height: auto;
+      cursor: pointer;
+    }
+    #tbot-link:hover{ transform: translateY(-1px); }
+    #tbot-link img{
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;                 /* shows the full body if PNG is transparent */
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
+    }
+
+
+
+    
+
+/* =================================================
+   Phone tweaks (<= 640px)
+   ============================================== */
+@media (max-width: 640px){
+  /* iOS + fixed backgrounds = jank */
+  body{ background-attachment: scroll; }
+
+  /* Header: two rows; reserve right space for avatar */
+  header{ padding: .48rem .85rem; }
+  header .container{
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: .4rem;
+    position: relative;
+    /* Reserve space on the right that matches the avatar width */
+    --avaW: 52px;          /* ← tweak this to make the avatar wider/narrower */
+    --avaRight: 8px;       /* distance from right edge */
+    padding-right: calc(var(--avaW) + var(--avaRight) + 6px);
+  }
+
+
+  /* Row 1: name — slightly smaller so it stays on 2 lines */
+  header h1{
+    order: 1;
+    font-size: clamp(1.02rem, 5.4vw, 1.42rem);
+    line-height: 1.12;
+    max-width: 60vw;
+    margin: 0;
+  }
+
+  /* Avatar: no circle, confined to the band, spans visually both rows */
+  .header-avatar{
+    display: block !important;
+    position: absolute; right: var(--avaRight); top: 4px;
+    width: var(--avaW);      /* ← controlled by the variable above */
+    height: auto;
+    max-height: 56px;        /* stays inside the band */
+    border-radius: 0 !important;    /* no circular crop */
+    background: transparent;
+    object-fit: contain;
+    cursor: pointer;
+    z-index: 2;
+  }  
+
+
+  /* Hard break before Row 2 */
+  header .container::after{ content:""; order:3; flex-basis:100%; }
+
+  /* Row 2: theme icon then nav; tighter spacing */
+  .theme-label{ display:none; }
+  .theme-toggle{ order:4; margin-right:.28rem; }
+  header nav{ order:5; flex:0 0 auto; margin-left:0 !important; }
+  nav ul{ flex-wrap:wrap; gap:.45rem; padding-left:0; margin:0; justify-content:flex-start; }
+  nav ul li a{ font-size:.93rem; line-height:1.1; }
+
+  /* Content */
+  .hero{
+    flex-direction: column; align-items: center; text-align:left;
+    margin: 1rem auto; max-width:94vw; padding:1rem 1rem 1.25rem;
+  }
+  .hero.has-image .hero-text{ max-width:100%; }
+  .hero-img img{ width:150px; }
+
+  section{
+    margin:1rem auto; max-width:94vw; padding:1rem 1rem 1.25rem;
+  }
+  .hero-text p, section p{ font-size:1rem; }
+
+  .pub-note.award-logo{ padding-right:0; }
+  .pub-note.award-logo::after{ display:none; }
+
+
+
+  /* Smaller UP button */
+  #scrollTopBtn{
+    right:12px; bottom:calc(12px + env(safe-area-inset-bottom));
+    font-size:.95rem; padding:10px 12px; border-radius:5px;
+  }
+
+  #tbot-link{ display: none; }
+
+}
+
+
+
+  /* Header avatar as a link (top-right) */
+  .header-avatar-link{
+    position: absolute;
+    right: 8px;
+    top: 4px;
+    height: 56px;           /* adjust height to taste */
+    display: block;
+    z-index: 2;
+  }
+
+    
+/* Speech bubble for T-bot avatar (bottom-left) */
+#tbot-link::after{
+  content: "let’s chat!";
+  position: absolute;
+  left: 88%;             /* sits near avatar mouth */
+  bottom: 70%;
+  transform: translateY(50%);
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  background: #6a0f18;           /* maroon fill */
+  color: #ffffff;                 /* white text */
+  border: 2px solid #d0c29f;      /* CONTRAST: gold border */
+  border-radius: 9999px;
+  padding: 6px 10px;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0,0,0,.12);
+  z-index: 10001;
+}
+
+#tbot-link::before{
+  content:"";
+  position: absolute;
+  left: 82%;
+  bottom: 58%;
+  transform: translateY(50%);
+  width: 0; height: 0;
+  border: 7px solid transparent;
+  border-right-color: #6a0f18;    /* same as fill */
+  filter: drop-shadow(1px 0 0 #d0c29f); /* CONTRAST: gold edge */
+}
+
+/* Dark mode → invert bubble (white background, maroon text) */
+body.dark #tbot-link::after{
+  background: #ffffff;            /* white fill */
+  color: #6a0f18;                 /* maroon text */
+  border-color: #6a0f18;          /* CONTRAST: maroon border */
+}
+
+body.dark #tbot-link::before{
+  border-right-color: #ffffff;    /* same as fill */
+  filter: drop-shadow(1px 0 0 #6a0f18); /* CONTRAST: maroon edge */
+}
+
+/* Hide on phones */
+@media (max-width:640px){
+  #tbot-link::after,
+  #tbot-link::before{ display:none; }
+}
+
+
+/* Dark mode colors */
+body.dark .header-avatar-link::after{
+  background: #6a0f18;
+  color: #ffffff;
+  border-color: #d0c29f;
+}
+body.dark .header-avatar-link::before{
+  border-left-color: #6a0f18;
+  filter: drop-shadow(-1px 0 0 #d0c29f);
+}
+
+/* Optional: hide bubble on very small screens (avatar already obvious) */
+@media (max-width: 640px){
+  .header-avatar-link::after,
+  .header-avatar-link::before{ display:none; }
+}
+
+  .header-avatar{
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    border-radius: 0 !important;
+    display: block;
+    cursor: pointer;
+  }
+
+    
+/* Hidden by default; shown only on phones via rule above */
+.header-avatar{ display:none; }
+
    
   </style>  
   <link rel="canonical" href="https://thibautmorillon.com/" />
 </head>
 
 
+
+
+
+  
 <!-- 
   ============================
           Body Starts
@@ -601,6 +809,16 @@
 <body>
   <header>
     <div class="container">
+      <!-- Header avatar linking to GPT -->
+    <a class="header-avatar-link"
+       href="https://chatgpt.com/g/REPLACE_WITH_YOUR_GPT_ID"
+       target="_blank" rel="noopener"
+       title="Chat with T-bot">
+      <img class="header-avatar"
+           src="Images/Mini_Me_transparent.png"
+           alt="T-bot" />
+    </a>
+
       <h1>Thibaut G. Morillon</h1>
       <nav>
         <ul>
@@ -626,7 +844,7 @@
 -->  
   <section class="hero" id="intro">
     <div class="hero-text">
-      <h2 class="hero-title">Thibaut G. Morillon</h2>
+      <h2 id="typed-intro" class="hero-title"></h2>
     <p>
       I am an Associate Professor of Finance at Elon University.<br>
       I am fascinated by the application of AI and Machine Learning in Finance and Real Estate, as well as anything related to Crypto and Fintech. 
@@ -646,7 +864,7 @@
       </div>
     </div>
     <div class="hero-img">
-      <img src="Images/TM_photo.jpg" alt="Thibaut G. Morillon">
+      <img src="Images/TM_photo.jpg" alt="Thibaut G. Morillon" loading="eager" fetchpriority="high" decoding="async" width="200" height="200">
     </div>
   </section>
 
@@ -1047,6 +1265,18 @@
   </footer>
 
 
+<!-- 
+  ============================
+            LLM Bot
+  ============================
+-->    
+<!-- Simple T-bot link bubble (opens GPT in a new tab) -->
+<a id="tbot-link" href="https://chatgpt.com/g/g-6865f26998f881918f11472e5a1f01ec-t-bot"
+   target="_blank" rel="noopener" title="Chat with T-bot">
+  <img src="Images/Mini_Me_transparent.png" alt="T-bot" />
+</a>
+
+  
   
 <!-- 
   ============================
@@ -1054,11 +1284,16 @@
   ============================
 -->
 
-<script src="https://unpkg.com/scrollreveal"></script>
-<script src="script/ScrollReveal.js"></script>
-<script src="script/UP_Btn.js"></script>
-<script src="script/toggle_Btn.js"></script>
-<script src="script/nav_highlight.js"></script>
+<script src="https://unpkg.com/scrollreveal" defer></script>
+<script src="script/ScrollReveal.js" defer></script>
+<script src="script/UP_Btn.js" defer></script>
+<script src="script/toggle_Btn.js" defer></script>
+<script src="script/nav_highlight.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer></script>
+<script src="script/typed_init.js" defer></script>
+
+<!-- <script src="script/T_bot.js" defer></script> -->
+
 
 
 </body>
