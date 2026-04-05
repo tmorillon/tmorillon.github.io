@@ -1,9 +1,19 @@
 (() => {
   // API endpoint
-  const ENDPOINT = "https://tbot-api.vercel.app/api/tbot";
+  const ENDPOINT = "https://tbot-api.tmorillon.workers.dev";
+
+  // Avatar poses - cycles on each reply
+  const POSES = [
+    "Images/Mini-Me_arms_crossed_transparent.png",
+    "Images/Mini-Me_thumbs_up_transparent.png",
+    "Images/Mini-Me_coffee_transparent.png",
+    "Images/Mini-Me_Shush_transparent.png",
+  ];
+  let poseIndex = 0;
 
   // DOM
   const $bubble   = document.getElementById('tbot-bubble');
+  const $bubbleImg = $bubble ? $bubble.querySelector('img') : null;
   const $composer = document.getElementById('tbot-composer');
   const $input    = document.getElementById('tbot-input');
   const $send     = document.getElementById('tbot-send');
@@ -39,6 +49,12 @@
     setTimeout(()=> $input && $input.focus(), 0);
   }
   function closeComposer(){ $composer.classList.remove('open'); }
+
+  function cyclePose() {
+    if (!$bubbleImg) return;
+    poseIndex = (poseIndex + 1) % POSES.length;
+    $bubbleImg.src = POSES[poseIndex];
+  }
 
   // Hover on desktop; click on both desktop/mobile
   if ($bubble) {
@@ -78,7 +94,7 @@
     history.push({ role:'user', content:text });
     $input.value = '';
 
-    addCard('assistant', '…'); // placeholder
+    addCard('assistant', '...'); // placeholder
     const placeholder = $stack.lastChild;
 
     pending = true; $send.disabled = true;
@@ -86,13 +102,12 @@
       const res = await fetch(ENDPOINT, {
         method:'POST',
         headers:{ 'Content-Type':'application/json' },
-        body: JSON.stringify({ messages: history.slice(-20) })
+        body: JSON.stringify({ messages: history.slice(-6) })
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        // Surface server’s detail to help debugging
         placeholder.textContent = (data && (data.detail || data.error)) || 'Server error';
         return;
       }
@@ -101,8 +116,11 @@
       placeholder.textContent = reply;
       history.push({ role:'assistant', content: reply });
 
+      // Cycle avatar pose on each reply
+      cyclePose();
+
     }catch(err){
-      placeholder.textContent = 'Error contacting T-bot.';
+      placeholder.textContent = 'Hmm, having trouble connecting. Try again in a moment.';
     }finally{
       pending = false; $send.disabled = false;
     }
