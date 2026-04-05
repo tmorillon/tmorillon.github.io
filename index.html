@@ -614,9 +614,9 @@
     }
     #tbot-chat-wrap.open{ display:block; }
 
-    /* Speech bubble shape */
+    /* Speech bubble shape - maroon in light mode */
     #tbot-chat-inner{
-      background:#fff;
+      background:#6a0f18;
       border:2px solid #d0c29f;
       border-radius:18px;
       padding:12px 14px;
@@ -638,7 +638,7 @@
       right:-10px; bottom:31px;
       width:0; height:0;
       border:6px solid transparent;
-      border-left-color:#fff;
+      border-left-color:#6a0f18;
     }
 
     /* Message stack inside bubble */
@@ -654,21 +654,22 @@
       margin:6px 0; padding:8px 10px;
       border-radius:10px;
       font:13px/1.4 'Cormorant Garamond', serif;
+      color:#fff;
     }
     .tbot-user{
-      background:#dbeafe; border:1px solid #bfdbfe;
+      background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25);
       margin-left:40px; text-align:right;
     }
     .tbot-bot{
-      background:#f9f6f0; border:1px solid #e8e2d6;
+      background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2);
       margin-right:20px;
     }
 
     /* Composer inside the bubble */
     #tbot-composer{
       display:none; align-items:center; gap:6px;
-      background:#f5f3ee;
-      border:1px solid #e5e2d8;
+      background:rgba(255,255,255,0.15);
+      border:1px solid rgba(255,255,255,0.25);
       border-radius:9999px;
       padding:4px 6px;
     }
@@ -677,10 +678,12 @@
     #tbot-input{
       flex:1; border:0; outline:0; background:transparent;
       font:13px/1.2 'Cormorant Garamond', serif; padding:4px;
+      color:#fff;
     }
+    #tbot-input::placeholder{ color:rgba(255,255,255,0.6); }
     #tbot-send{
       border:0; border-radius:8px; padding:6px 10px; cursor:pointer;
-      background:#6a0f18; color:#fff; font-weight:600; font-size:12px;
+      background:#d0c29f; color:#6a0f18; font-weight:600; font-size:12px;
     }
 
 
@@ -835,8 +838,11 @@ body.dark #tbot-chat-inner::after{ border-left-color:#ffffff; }
 body.dark #tbot-chat-inner::before{ border-left-color:#d0c29f; }
 body.dark #tbot-composer{ background:#f5f3ee; border-color:#e5e2d8; }
 body.dark #tbot-input{ color:#2d2a26; }
-body.dark .tbot-card.tbot-bot{ background:#f9f6f0; border-color:#e8e2d6; color:#2d2a26; }
-body.dark .tbot-user{ background:#dbeafe; border-color:#bfdbfe; color:#2d2a26; }
+body.dark #tbot-input::placeholder{ color:#999; }
+body.dark #tbot-send{ background:#6a0f18; color:#fff; }
+body.dark .tbot-card{ color:#2d2a26; }
+body.dark .tbot-card.tbot-bot{ background:#f9f6f0; border-color:#e8e2d6; }
+body.dark .tbot-user{ background:#dbeafe; border-color:#bfdbfe; }
 
 @media (max-width:640px){
   #tbot-bubble::after,
