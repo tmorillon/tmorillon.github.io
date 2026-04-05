@@ -592,7 +592,7 @@
 
     /* Mini-me chat - comic book speech bubble style */
     #tbot-bubble{
-      position:fixed; left:20px; bottom:calc(20px + env(safe-area-inset-bottom));
+      position:fixed; right:20px; bottom:calc(20px + env(safe-area-inset-bottom));
       z-index:10000; width:120px; height:auto;
       background:transparent; border:none; box-shadow:none;
       overflow:visible; cursor:pointer;
@@ -603,10 +603,10 @@
       filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
     }
 
-    /* Chat container - positioned as speech bubble next to Mini-me */
+    /* Chat container - speech bubble to the LEFT of Mini-me */
     #tbot-chat-wrap{
       position:fixed;
-      left:150px;
+      right:150px;
       bottom:calc(40px + env(safe-area-inset-bottom));
       width:340px; max-width:60vw;
       z-index:10000;
@@ -623,22 +623,22 @@
       box-shadow:0 8px 20px rgba(0,0,0,.12);
       position:relative;
     }
-    /* Triangle pointer toward Mini-me */
+    /* Triangle pointer toward Mini-me (right side) */
     #tbot-chat-inner::before{
       content:"";
       position:absolute;
-      left:-14px; bottom:30px;
+      right:-14px; bottom:30px;
       width:0; height:0;
       border:7px solid transparent;
-      border-right-color:#d0c29f;
+      border-left-color:#d0c29f;
     }
     #tbot-chat-inner::after{
       content:"";
       position:absolute;
-      left:-10px; bottom:31px;
+      right:-10px; bottom:31px;
       width:0; height:0;
       border:6px solid transparent;
-      border-right-color:#fff;
+      border-left-color:#fff;
     }
 
     /* Message stack inside bubble */
@@ -788,7 +788,7 @@
 #tbot-bubble::after{
   content: "Ask Mini-me!";
   position: absolute;
-  left: 88%;
+  right: 88%;
   bottom: 70%;
   transform: translateY(50%);
   font-family: ‘Playfair Display’, serif;
@@ -808,13 +808,12 @@
 #tbot-bubble::before{
   content:"";
   position: absolute;
-  left: 82%;
+  right: 82%;
   bottom: 58%;
   transform: translateY(50%);
   width: 0; height: 0;
   border: 7px solid transparent;
-  border-right-color: #6a0f18;
-  filter: drop-shadow(1px 0 0 #d0c29f);
+  border-left-color: #6a0f18;
   transition: opacity 0.2s;
 }
 /* Hide label when chat is open */
@@ -827,18 +826,17 @@ body.dark #tbot-bubble::after{
   border-color: #6a0f18;
 }
 body.dark #tbot-bubble::before{
-  border-right-color: #ffffff;
-  filter: drop-shadow(1px 0 0 #6a0f18);
+  border-left-color: #ffffff;
 }
 
-/* Dark mode for chat */
-body.dark #tbot-chat-inner{ background:#2d2a26; border-color:#6a0f18; }
-body.dark #tbot-chat-inner::after{ border-right-color:#2d2a26; }
-body.dark #tbot-chat-inner::before{ border-right-color:#6a0f18; }
-body.dark #tbot-composer{ background:#3a3735; border-color:#555; }
-body.dark #tbot-input{ color:#fff; }
-body.dark .tbot-card.tbot-bot{ background:#3a3735; border-color:#555; color:#fff; }
-body.dark .tbot-user{ background:#1e3a5f; border-color:#2a5080; color:#fff; }
+/* Dark mode for chat - white bubble on dark/maroon background */
+body.dark #tbot-chat-inner{ background:#ffffff; border-color:#d0c29f; }
+body.dark #tbot-chat-inner::after{ border-left-color:#ffffff; }
+body.dark #tbot-chat-inner::before{ border-left-color:#d0c29f; }
+body.dark #tbot-composer{ background:#f5f3ee; border-color:#e5e2d8; }
+body.dark #tbot-input{ color:#2d2a26; }
+body.dark .tbot-card.tbot-bot{ background:#f9f6f0; border-color:#e8e2d6; color:#2d2a26; }
+body.dark .tbot-user{ background:#dbeafe; border-color:#bfdbfe; color:#2d2a26; }
 
 @media (max-width:640px){
   #tbot-bubble::after,
