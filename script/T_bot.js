@@ -1,5 +1,4 @@
 (() => {
-  // API endpoint
   const ENDPOINT = "https://tbot-api.tmorillon.workers.dev";
 
   // Avatar poses - cycles on each reply
@@ -22,13 +21,14 @@
   // Mobile header avatar toggles chat
   const headerAvatar = document.querySelector('.header-avatar');
   if (headerAvatar) {
-    headerAvatar.addEventListener('click', () => {
-      $composer.classList.contains('open') ? closeComposer() : openComposer();
+    headerAvatar.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleChat();
     });
   }
 
-  // ---- Client daily quota (saves money) ----
-  const DAY = 86400000, CAP = 20; // 20 messages/day per browser
+  // ---- Client daily quota ----
+  const DAY = 86400000, CAP = 20;
   let quota = JSON.parse(localStorage.getItem('tbotQuota') || '{"d":0,"n":0}');
   const today = Math.floor(Date.now() / DAY);
   if (quota.d !== today) quota = { d: today, n: 0 };
@@ -38,17 +38,33 @@
     return true;
   }
 
-  // ---- UI helpers ----
+  // ---- State ----
   let history = [];
   let pending = false;
-  let hoverTimer = null;
+  let chatOpen = false;
 
-  function openComposer(){
-    $composer.classList.add('open');
-    $stack.style.display = 'block';
-    setTimeout(()=> $input && $input.focus(), 0);
+  function toggleChat() {
+    chatOpen ? closeChat() : openChat();
   }
-  function closeComposer(){ $composer.classList.remove('open'); }
+
+  const $wrap = document.getElementById('tbot-chat-wrap');
+
+  function openChat() {
+    chatOpen = true;
+    $wrap.classList.add('open');
+    $composer.classList.add('open');
+    $stack.classList.add('open');
+    $bubble.classList.add('chat-active');
+    setTimeout(() => $input && $input.focus(), 0);
+  }
+
+  function closeChat() {
+    chatOpen = false;
+    $wrap.classList.remove('open');
+    $composer.classList.remove('open');
+    $stack.classList.remove('open');
+    $bubble.classList.remove('chat-active');
+  }
 
   function cyclePose() {
     if (!$bubbleImg) return;
@@ -56,19 +72,13 @@
     $bubbleImg.src = POSES[poseIndex];
   }
 
-  // Hover on desktop; click on both desktop/mobile
+  // Click only - no hover
   if ($bubble) {
-    $bubble.addEventListener('pointerenter', () => { clearTimeout(hoverTimer); openComposer(); });
-    $bubble.addEventListener('pointerleave', () => {
-      hoverTimer = setTimeout(() => { if(!$input.matches(':focus')) closeComposer(); }, 200);
-    });
-    $bubble.addEventListener('click', () => {
-      $composer.classList.contains('open') ? closeComposer() : openComposer();
-    });
+    $bubble.addEventListener('click', toggleChat);
   }
-  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeComposer(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeChat(); });
 
-  function addCard(role, text){
+  function addCard(role, text) {
     const div = document.createElement('div');
     div.className = `tbot-card ${role === 'user' ? 'tbot-user' : 'tbot-bot'}`;
     div.textContent = text;
@@ -84,24 +94,23 @@
     const text = $input.value.trim();
     if (!text) return;
 
-    // Client daily cap
     if (!takeQuota()) {
-      addCard('assistant','Daily limit reached. Please try again tomorrow.');
+      addCard('assistant', 'Daily limit reached. Please try again tomorrow.');
       return;
     }
 
     addCard('user', text);
-    history.push({ role:'user', content:text });
+    history.push({ role: 'user', content: text });
     $input.value = '';
 
-    addCard('assistant', '...'); // placeholder
+    addCard('assistant', '...');
     const placeholder = $stack.lastChild;
 
     pending = true; $send.disabled = true;
-    try{
+    try {
       const res = await fetch(ENDPOINT, {
-        method:'POST',
-        headers:{ 'Content-Type':'application/json' },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: history.slice(-6) })
       });
 
@@ -114,14 +123,12 @@
 
       const reply = data.reply || '(no reply)';
       placeholder.textContent = reply;
-      history.push({ role:'assistant', content: reply });
-
-      // Cycle avatar pose on each reply
+      history.push({ role: 'assistant', content: reply });
       cyclePose();
 
-    }catch(err){
+    } catch (err) {
       placeholder.textContent = 'Hmm, having trouble connecting. Try again in a moment.';
-    }finally{
+    } finally {
       pending = false; $send.disabled = false;
     }
   });

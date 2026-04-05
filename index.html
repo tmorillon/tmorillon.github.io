@@ -590,7 +590,7 @@
     }
 
 
-    /* T-bot embedded chat */
+    /* Mini-me chat - comic book speech bubble style */
     #tbot-bubble{
       position:fixed; left:20px; bottom:calc(20px + env(safe-area-inset-bottom));
       z-index:10000; width:120px; height:auto;
@@ -602,37 +602,86 @@
       object-fit:contain; object-position:center bottom;
       filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
     }
+
+    /* Chat container - positioned as speech bubble next to Mini-me */
+    #tbot-chat-wrap{
+      position:fixed;
+      left:150px;
+      bottom:calc(40px + env(safe-area-inset-bottom));
+      width:340px; max-width:60vw;
+      z-index:10000;
+      display:none;
+    }
+    #tbot-chat-wrap.open{ display:block; }
+
+    /* Speech bubble shape */
+    #tbot-chat-inner{
+      background:#fff;
+      border:2px solid #d0c29f;
+      border-radius:18px;
+      padding:12px 14px;
+      box-shadow:0 8px 20px rgba(0,0,0,.12);
+      position:relative;
+    }
+    /* Triangle pointer toward Mini-me */
+    #tbot-chat-inner::before{
+      content:"";
+      position:absolute;
+      left:-14px; bottom:30px;
+      width:0; height:0;
+      border:7px solid transparent;
+      border-right-color:#d0c29f;
+    }
+    #tbot-chat-inner::after{
+      content:"";
+      position:absolute;
+      left:-10px; bottom:31px;
+      width:0; height:0;
+      border:6px solid transparent;
+      border-right-color:#fff;
+    }
+
+    /* Message stack inside bubble */
+    #tbot-stack{
+      max-height:40vh;
+      overflow-y:auto;
+      margin-bottom:8px;
+      display:none;
+    }
+    #tbot-stack.open{ display:block; }
+
+    .tbot-card{
+      margin:6px 0; padding:8px 10px;
+      border-radius:10px;
+      font:13px/1.4 'Cormorant Garamond', serif;
+    }
+    .tbot-user{
+      background:#dbeafe; border:1px solid #bfdbfe;
+      margin-left:40px; text-align:right;
+    }
+    .tbot-bot{
+      background:#f9f6f0; border:1px solid #e8e2d6;
+      margin-right:20px;
+    }
+
+    /* Composer inside the bubble */
     #tbot-composer{
-      position:fixed; right:24px; left:auto;
-      bottom:calc(26px + env(safe-area-inset-bottom));
-      display:none; align-items:center; gap:8px;
-      width:420px; max-width:72vw; z-index:10000;
-      background:#fff; border:1px solid #e5e7eb;
-      border-radius:9999px; padding:6px 8px;
-      box-shadow:0 10px 24px rgba(0,0,0,.18);
+      display:none; align-items:center; gap:6px;
+      background:#f5f3ee;
+      border:1px solid #e5e2d8;
+      border-radius:9999px;
+      padding:4px 6px;
     }
     #tbot-composer.open{ display:flex; }
-    #tbot-stack{
-      position:fixed; right:24px; left:auto;
-      bottom:calc(96px + env(safe-area-inset-bottom));
-      width:min(420px, 72vw); max-height:60vh;
-      overflow:auto; display:none; z-index:10000;
-    }
+
     #tbot-input{
       flex:1; border:0; outline:0; background:transparent;
-      font:14px/1.2 ui-sans-serif, system-ui; padding:6px 4px;
+      font:13px/1.2 'Cormorant Garamond', serif; padding:4px;
     }
     #tbot-send{
-      border:0; border-radius:10px; padding:8px 12px; cursor:pointer;
-      background:#6a0f18; color:#fff; font-weight:600;
+      border:0; border-radius:8px; padding:6px 10px; cursor:pointer;
+      background:#6a0f18; color:#fff; font-weight:600; font-size:12px;
     }
-    .tbot-card{
-      background:#fff; border:1px solid #e5e7eb; margin:8px 0; padding:10px 12px;
-      border-radius:12px; font:14px/1.45 ui-sans-serif, system-ui;
-      box-shadow:0 6px 12px rgba(0,0,0,.06);
-    }
-    .tbot-user{ background:#dbeafe; border-color:#bfdbfe; margin-left:56px; }
-    .tbot-bot{ background:#fff; }
 
 
 
@@ -735,9 +784,9 @@
   }
 
     
-/* Speech bubble for T-bot avatar (bottom-left) */
+/* "Ask Mini-me!" label - hidden when chat is open */
 #tbot-bubble::after{
-  content: "let’s chat!";
+  content: "Ask Mini-me!";
   position: absolute;
   left: 88%;
   bottom: 70%;
@@ -754,8 +803,8 @@
   white-space: nowrap;
   box-shadow: 0 4px 10px rgba(0,0,0,.12);
   z-index: 10001;
+  transition: opacity 0.2s;
 }
-
 #tbot-bubble::before{
   content:"";
   position: absolute;
@@ -766,28 +815,35 @@
   border: 7px solid transparent;
   border-right-color: #6a0f18;
   filter: drop-shadow(1px 0 0 #d0c29f);
+  transition: opacity 0.2s;
 }
+/* Hide label when chat is open */
+#tbot-bubble.chat-active::after,
+#tbot-bubble.chat-active::before{ opacity:0; pointer-events:none; }
 
 body.dark #tbot-bubble::after{
   background: #ffffff;
   color: #6a0f18;
   border-color: #6a0f18;
 }
-
 body.dark #tbot-bubble::before{
   border-right-color: #ffffff;
   filter: drop-shadow(1px 0 0 #6a0f18);
 }
 
 /* Dark mode for chat */
-body.dark #tbot-composer{ background:#2d2a26; border-color:#555; }
+body.dark #tbot-chat-inner{ background:#2d2a26; border-color:#6a0f18; }
+body.dark #tbot-chat-inner::after{ border-right-color:#2d2a26; }
+body.dark #tbot-chat-inner::before{ border-right-color:#6a0f18; }
+body.dark #tbot-composer{ background:#3a3735; border-color:#555; }
 body.dark #tbot-input{ color:#fff; }
-body.dark .tbot-card{ background:#3a3735; border-color:#555; color:#fff; }
-body.dark .tbot-user{ background:#1e3a5f; border-color:#2a5080; }
+body.dark .tbot-card.tbot-bot{ background:#3a3735; border-color:#555; color:#fff; }
+body.dark .tbot-user{ background:#1e3a5f; border-color:#2a5080; color:#fff; }
 
 @media (max-width:640px){
   #tbot-bubble::after,
   #tbot-bubble::before{ display:none; }
+  #tbot-chat-wrap{ left:12px; right:12px; width:auto; bottom:20px; }
 }
 
 
@@ -1307,17 +1363,20 @@ body.dark .header-avatar-link::before{
             LLM Bot
   ============================
 -->    
-<!-- T-bot embedded chat -->
-<div id="tbot-bubble" title="Chat with T-bot" aria-label="Chat with T-bot">
-  <img src="Images/Mini-Me_arms_crossed_transparent.png" alt="T-bot avatar" />
+<!-- Mini-me embedded chat -->
+<div id="tbot-bubble" title="Ask Mini-me!" aria-label="Ask Mini-me">
+  <img src="Images/Mini-Me_arms_crossed_transparent.png" alt="Mini-me avatar" />
 </div>
 
-<form id="tbot-composer" autocomplete="off">
-  <input id="tbot-input" placeholder="Ask T-bot..." maxlength="500" />
-  <button id="tbot-send" type="submit" aria-label="Send">Send</button>
-</form>
-
-<div id="tbot-stack" aria-live="polite"></div>
+<div id="tbot-chat-wrap">
+  <div id="tbot-chat-inner">
+    <div id="tbot-stack" aria-live="polite"></div>
+    <form id="tbot-composer" autocomplete="off">
+      <input id="tbot-input" placeholder="Ask Mini-me..." maxlength="500" />
+      <button id="tbot-send" type="submit" aria-label="Send">Send</button>
+    </form>
+  </div>
+</div>
 
   
   
